@@ -23,6 +23,8 @@ public class MemberController {
     @ResponseStatus(HttpStatus.CREATED)
     public CreatedObjectDto create(@RequestBody @Valid MemberCreationDto memberCreationDto) {
         LOGGER.info("POST request at members api");
+        // createMember throws exception, handled by ExceptionHandler,
+        // which returns the corresponding status and data
         return memberService.createMember(memberCreationDto);
     }
 
