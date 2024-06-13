@@ -23,8 +23,8 @@ public class MemberService {
     public CreatedObjectDto createMember(MemberCreationDto memberCreationDto) throws MemberNotOldEnoughException {
 //        check if user is at least 18 years old, if it is save the new member
         if(! AgeChecker.isEighteenOrOlder(memberCreationDto.getBirthDate())) {
-            LOGGER.warn("Member is not old enough.");
-            throw new MemberNotOldEnoughException("Member is not old enough.");
+            LOGGER.warn("Member is not 18 years old, birth date: {}", memberCreationDto.getBirthDate());
+            throw new MemberNotOldEnoughException("Members must be at least 18 years old!");
         }
         Member savedMember = memberRepository.saveAndFlush(
                 memberMapper.creationDtoToMember(memberCreationDto)

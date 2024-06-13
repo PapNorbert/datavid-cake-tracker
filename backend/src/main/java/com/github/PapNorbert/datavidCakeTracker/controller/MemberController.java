@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 @ResponseStatus(HttpStatus.OK)
 @RequestMapping("api/members")
 @AllArgsConstructor
-@CrossOrigin(origins = "http://localhost:5173")
 public class MemberController {
     private final MemberService memberService;
 
