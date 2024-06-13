@@ -1,0 +1,10 @@
+spring:
+  jpa:
+    show-sql: true
+    hibernate.ddl-auto: update
+
+  datasource:
+    driver_class_name: "com.mysql.cj.jdbc.Driver"
+    url: "jdbc:mysql://localhost:3306/datavid_tracker"
+    username: "datavidTrackerUser"
+    password: "datavidTracker2024"
