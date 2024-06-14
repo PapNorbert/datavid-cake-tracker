@@ -44,7 +44,7 @@ public class MemberService {
             return new MembersListWithPaginationDto(memberDetailedDtos, pagination);
         } else {
             PageRequest pageRequest = PageRequest.of(page, limit,
-                    Sort.by("lastName").descending());
+                    Sort.by("lastName").and(Sort.by("firstName")));
             Specification<Member> specification = createSpecification(lastName, firstName);
             Page<Member> memberPage = memberRepository.findAll(specification, pageRequest);
             List<MemberDetailedDto> memberDetailedDtos =

@@ -90,6 +90,7 @@ export default function MemberCreate() {
 
   function handleSubmitSucces() {
     setForm(defaultFormData);
+    setSubmitError(null);
     setSuccesfull(true);
   }
 

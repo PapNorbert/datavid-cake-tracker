@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { Navbar, Nav, Container } from 'react-bootstrap'
+import { Navbar, Nav, Container, Stack } from 'react-bootstrap'
 
 
 
@@ -14,12 +14,16 @@ export default function Navigationbar() {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls='navbar-nav' />
         <Navbar.Collapse id='navbar-nav '>
-          <Container className='ms-5'>
+          <Stack direction='horizontal' className='ms-5'>
+            <Nav.Link className='me-4 mr-4 nav-text fw-bold'
+              onClick={() => { navigate('/members') }}>
+              Members
+            </Nav.Link>
             <Nav.Link className='me-4 mr-4 nav-text fw-bold'
               onClick={() => { navigate('/members/create') }}>
               Add member
             </Nav.Link>
-          </Container>
+          </Stack>
         </Navbar.Collapse>
 
       </Container>
