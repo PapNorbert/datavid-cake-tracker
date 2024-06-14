@@ -1,7 +1,7 @@
 package com.github.PapNorbert.datavidCakeTracker.controller;
 
 
-import com.github.PapNorbert.datavidCakeTracker.dto.incoming.MemberCreationDto;
+import com.github.PapNorbert.datavidCakeTracker.dto.incoming.MemberIncomingDto;
 import com.github.PapNorbert.datavidCakeTracker.dto.outgoing.CreatedObjectDto;
 import com.github.PapNorbert.datavidCakeTracker.dto.outgoing.MembersListWithPaginationDto;
 import com.github.PapNorbert.datavidCakeTracker.service.MemberService;
@@ -38,11 +38,25 @@ public class MemberController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CreatedObjectDto create(@RequestBody @Valid MemberCreationDto memberCreationDto) {
+    public CreatedObjectDto create(@RequestBody @Valid MemberIncomingDto memberIncomingDto) {
         LOGGER.info("POST request at members api");
         // createMember throws exception, handled by ExceptionHandler,
         // which returns the corresponding status and data
-        return memberService.createMember(memberCreationDto);
+        return memberService.createMember(memberIncomingDto);
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@PathVariable("id") Long id, @RequestBody @Valid MemberIncomingDto memberIncomingDto) {
+        LOGGER.info("PUT request at members/{} api", id);
+        memberService.update(id, memberIncomingDto);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable("id") Long id) {
+        LOGGER.info("DELETE request at members/{} api", id);
+        memberService.delete(id);
     }
 
 }

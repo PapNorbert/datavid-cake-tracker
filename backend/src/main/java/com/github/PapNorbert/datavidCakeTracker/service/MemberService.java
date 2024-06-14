@@ -1,6 +1,6 @@
 package com.github.PapNorbert.datavidCakeTracker.service;
 
-import com.github.PapNorbert.datavidCakeTracker.dto.incoming.MemberCreationDto;
+import com.github.PapNorbert.datavidCakeTracker.dto.incoming.MemberIncomingDto;
 import com.github.PapNorbert.datavidCakeTracker.dto.outgoing.CreatedObjectDto;
 import com.github.PapNorbert.datavidCakeTracker.dto.outgoing.MemberDetailedDto;
 import com.github.PapNorbert.datavidCakeTracker.dto.outgoing.MembersListWithPaginationDto;
@@ -10,7 +10,10 @@ import com.github.PapNorbert.datavidCakeTracker.model.Member;
 import com.github.PapNorbert.datavidCakeTracker.repository.MemberRepository;
 import com.github.PapNorbert.datavidCakeTracker.repository.jpa.MemberSpecification;
 import com.github.PapNorbert.datavidCakeTracker.service.exception.MemberNotOldEnoughException;
+import com.github.PapNorbert.datavidCakeTracker.service.exception.NotFoundException;
+import com.github.PapNorbert.datavidCakeTracker.service.exception.NotUpdatedException;
 import com.github.PapNorbert.datavidCakeTracker.util.AgeChecker;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -55,16 +58,38 @@ public class MemberService {
         }
     }
 
-    public CreatedObjectDto createMember(MemberCreationDto memberCreationDto) throws MemberNotOldEnoughException {
+    public CreatedObjectDto createMember(MemberIncomingDto memberIncomingDto) throws MemberNotOldEnoughException {
 //        check if user is at least 18 years old, if it is, save the new member
-        if (!AgeChecker.isEighteenOrOlder(memberCreationDto.getBirthDate())) {
-            LOGGER.warn("Member is not 18 years old, birth date: {}", memberCreationDto.getBirthDate());
+        if (!AgeChecker.isEighteenOrOlder(memberIncomingDto.getBirthDate())) {
+            LOGGER.warn("Member is not 18 years old, birth date: {}", memberIncomingDto.getBirthDate());
             throw new MemberNotOldEnoughException("Members must be at least 18 years old!");
         }
         Member savedMember = memberRepository.saveAndFlush(
-                memberMapper.creationDtoToMember(memberCreationDto)
+                memberMapper.incomingDtoToMember(memberIncomingDto)
         );
         return new CreatedObjectDto(savedMember.getId());
+    }
+
+    public void update(Long id, MemberIncomingDto memberIncomingDto) {
+        try {
+            if (memberRepository.update(id,
+                    memberMapper.incomingDtoToMember(memberIncomingDto)) <= 0) {
+                LOGGER.error("No update done for member with ID {}", id);
+                throw new NotUpdatedException("No update done for member with ID " + id);
+            }
+        } catch (EntityNotFoundException e) {
+            LOGGER.error("Member with ID {} not found when trying to update", id);
+            throw new NotFoundException("Member with ID " + id + " not found", e);
+        }
+    }
+
+    public void delete(Long id) {
+        try {
+            memberRepository.deleteById(id);
+        } catch (EntityNotFoundException e) {
+            LOGGER.error("Member with ID {} not found when trying to delete", id);
+            throw new NotFoundException("Member with ID " + id + " not found", e);
+        }
     }
 
     private Specification<Member> createSpecification(String lastName, String firstName) {

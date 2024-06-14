@@ -11,7 +11,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberCreationDto {
+public class MemberIncomingDto {
     @NotBlank
     private String firstName;
     @NotBlank

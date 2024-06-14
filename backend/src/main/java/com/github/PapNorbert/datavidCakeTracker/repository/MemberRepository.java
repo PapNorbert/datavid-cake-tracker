@@ -11,4 +11,9 @@ public interface MemberRepository {
     Page<Member> findAllByBirthdayDistance(Pageable pageable);
 
     Member saveAndFlush(Member entity);
+
+    // returns the number of updated entities
+    Integer update(Long id, Member entity);
+
+    void deleteById(Long id);
 }
