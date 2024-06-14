@@ -1,0 +1,6 @@
+spring:
+  profiles:
+    active: jpa
+
+cors:
+  allowed-origin: http://localhost:5173

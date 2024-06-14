@@ -1,0 +1,14 @@
+{
+  "serverUrl": "http://localhost:8080",
+  "apiPrefix": "api",
+  "limitQuerryParamName": "limit",
+  "limitQuerryParamDefault": "5",
+  "pageQuerryParamName": "page",
+  "pageQuerryParamDefault": "1",
+  "lastNameQuerryParamName": "lastName",
+  "lastNameQuerryParamDefault": "",
+  "firstNameQuerryParamName": "firstName",
+  "firstNameQuerryParamDefault": "",
+  "orderByDateQuerryParamName": "orderByDate",
+  "orderByDateQuerryParamDefault": "false"
+}
