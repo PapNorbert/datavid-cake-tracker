@@ -3,11 +3,12 @@ package com.github.PapNorbert.datavidCakeTracker.repository;
 import com.github.PapNorbert.datavidCakeTracker.model.Member;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
 public interface MemberRepository {
-    Page<Member> findAll(Pageable pageable);
+    Page<Member> findAll(Specification<Member> spec, Pageable pageable);
 
-    Member getById(Long id);
+    Page<Member> findAllByBirthdayDistance(Pageable pageable);
 
     Member saveAndFlush(Member entity);
 }

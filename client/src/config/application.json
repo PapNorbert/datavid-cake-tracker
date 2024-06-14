@@ -4,6 +4,11 @@
   "limitQuerryParamName": "limit",
   "limitQuerryParamDefault": "5",
   "pageQuerryParamName": "page",
-  "pageQuerryParamDefault": "1"
-  
+  "pageQuerryParamDefault": "1",
+  "lastNameQuerryParamName": "lastName",
+  "lastNameQuerryParamDefault": "",
+  "firstNameQuerryParamName": "firstName",
+  "firstNameQuerryParamDefault": "",
+  "orderByDateQuerryParamName": "orderByDate",
+  "orderByDateQuerryParamDefault": "false"
 }

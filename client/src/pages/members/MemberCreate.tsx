@@ -121,18 +121,6 @@ export default function MemberCreate() {
         <h2 className='text-center'>Registration</h2>
         <Row>
           <Col>
-            <FloatingLabel controlId='floatingFirstNameInput'
-              label='First Name' className='mb-3' >
-              <Form.Control type='text' placeholder='First Name'
-                value={form.firstName} isInvalid={!!errors.firstName} autoComplete='off'
-                onChange={e => { setField('firstName', e.target.value) }} />
-              <Form.Control.Feedback type='invalid'>
-                {errors['firstName']}
-              </Form.Control.Feedback>
-            </FloatingLabel>
-          </Col>
-
-          <Col>
             <FloatingLabel controlId='floatingLastNameInput'
               label='Last Name' className='mb-3' >
               <Form.Control type='text' placeholder='Last Name'
@@ -140,6 +128,18 @@ export default function MemberCreate() {
                 onChange={e => { setField('lastName', e.target.value) }} />
               <Form.Control.Feedback type='invalid'>
                 {errors['lastName']}
+              </Form.Control.Feedback>
+            </FloatingLabel>
+          </Col>
+
+          <Col>
+            <FloatingLabel controlId='floatingFirstNameInput'
+              label='First Name' className='mb-3' >
+              <Form.Control type='text' placeholder='First Name'
+                value={form.firstName} isInvalid={!!errors.firstName} autoComplete='off'
+                onChange={e => { setField('firstName', e.target.value) }} />
+              <Form.Control.Feedback type='invalid'>
+                {errors['firstName']}
               </Form.Control.Feedback>
             </FloatingLabel>
           </Col>

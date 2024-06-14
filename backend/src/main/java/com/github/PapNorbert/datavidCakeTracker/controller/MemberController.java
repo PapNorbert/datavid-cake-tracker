@@ -3,8 +3,10 @@ package com.github.PapNorbert.datavidCakeTracker.controller;
 
 import com.github.PapNorbert.datavidCakeTracker.dto.incoming.MemberCreationDto;
 import com.github.PapNorbert.datavidCakeTracker.dto.outgoing.CreatedObjectDto;
+import com.github.PapNorbert.datavidCakeTracker.dto.outgoing.MembersListWithPaginationDto;
 import com.github.PapNorbert.datavidCakeTracker.service.MemberService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,22 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class MemberController {
     private final MemberService memberService;
+
+
+    @GetMapping()
+    public MembersListWithPaginationDto findPaginated(
+            @RequestParam(defaultValue = "1", required = false) @Positive int page,
+            @RequestParam(defaultValue = "5", required = false) @Positive int limit,
+            @RequestParam(required = false) String lastName,
+            @RequestParam(required = false) String firstName,
+            @RequestParam(defaultValue = "false", required = false) boolean orderByDate
+    ) {
+        LOGGER.info("GET paginated members at members api, "
+                        + "page: {}, limit: {}, orderByDate: {}",
+                page, limit, orderByDate);
+//        page correction, 0 is the first page, request uses 1 for first page
+        return memberService.getMembersPaginated(page -1, limit,lastName, firstName, orderByDate);
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
