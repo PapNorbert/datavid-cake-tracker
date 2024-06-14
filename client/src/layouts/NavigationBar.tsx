@@ -16,12 +16,12 @@ export default function Navigationbar() {
         <Navbar.Collapse id='navbar-nav '>
           <Stack direction='horizontal' className='ms-5'>
             <Nav.Link className='me-4 mr-4 nav-text fw-bold'
-              onClick={() => { navigate('/members') }}>
-              Members
-            </Nav.Link>
-            <Nav.Link className='me-4 mr-4 nav-text fw-bold'
               onClick={() => { navigate('/members/create') }}>
               Add member
+            </Nav.Link>
+            <Nav.Link className='me-4 mr-4 nav-text fw-bold'
+              onClick={() => { navigate('/members') }}>
+              Members
             </Nav.Link>
           </Stack>
         </Navbar.Collapse>
